@@ -41,7 +41,7 @@ view(Top_50)
 
 
 ################
-#
+#Qb:
 
 rel_html <- read_html("https://www.moneyworks4me.com/indianstocks/large-cap/oil-gas/refineries/reliance-industries/company-info#faqsdiv")
 rel_html <- html_element(rel_html, "body")
@@ -71,3 +71,36 @@ rel_table1 <- rbind(rel_table1, rel_table2)
 #rel_table <- rel_table[-c(2,3,4,5,14,15,16,17,18,19,20,21)]
 rel_table <-rel_table[1:11]
 
+
+
+#################
+##Qc:
+
+tennis <- function(p){
+  win_a <- 0
+  win_b <- 0
+  #p <- as.integer(p)
+  p <- c((1-p),p)
+  for (i  in 1:5) {
+    a <- sample(x = 0:1, size = 1, prob = p)
+    a <- as.integer(a)
+    if(a){
+      win_a <- win_a + 1
+    }else{
+      win_b <- win_b + 1
+    }
+    if(win_b == 3 | win_a ==3){
+      break
+    }
+  }
+  x <- win_b + win_a
+  return(x)
+}
+
+matches <- c()
+for(i in 1:1000){
+  matches[i] <- tennis(0.70)
+}
+ans <- mean(matches)
+
+print(ans)

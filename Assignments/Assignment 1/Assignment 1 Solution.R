@@ -104,3 +104,48 @@ for(i in 1:1000){
 ans <- mean(matches)
 
 print(ans)
+
+
+#################
+##Qe:
+
+html_tomato <- read_html("https://editorial.rottentomatoes.com/guide/best-netflix-movies-to-watch-right-now/")
+html_tomato <- html_elements(html_tomato, ".container.body_main")
+html_tomato <- html_elements(html_tomato, "#article_main_body")
+html_tomato <- html_elements(html_tomato, ".panel-rt.panel-box.article_body")
+html_tomato <- html_elements(html_tomato, ".articleContentBody")
+html_tomato <- html_elements(html_tomato, ".row.countdown-item")
+rank_tomato <- html_element(html_tomato, ".countdown-index-responsive")
+rank_tomato <- html_text(rank_tomato)
+
+name_tomato <- html_elements(html_tomato, ".col-sm-18.col-full-xs.countdown-item-content")
+name_tomato <- html_elements(html_tomato, ".row.countdown-item-title-bar")
+name_tomato <- html_elements(name_tomato, ".col-sm-20.col-full-xs")
+name_tomato <- html_elements(name_tomato, ".article_movie_title")
+name_tomato <- html_elements(name_tomato, "div")
+name_tomato <- html_elements(name_tomato, "h2")
+name_tomato <- html_elements(name_tomato, "a")
+name_tomato <- html_text(name_tomato)
+
+year_tomato <- html_elements(html_tomato, ".col-sm-18.col-full-xs.countdown-item-content")
+year_tomato <- html_elements(html_tomato, ".row.countdown-item-title-bar")
+year_tomato <- html_elements(year_tomato, ".col-sm-20.col-full-xs")
+year_tomato <- html_elements(year_tomato, ".article_movie_title")
+year_tomato <- html_elements(year_tomato, "div")
+year_tomato <- html_elements(year_tomato, "h2")
+year_tomato <- html_elements(year_tomato, ".subtle.start-year")
+year_tomato <- html_text(year_tomato)
+
+score_tomato <- html_elements(html_tomato, ".col-sm-18.col-full-xs.countdown-item-content")
+score_tomato <- html_elements(html_tomato, ".row.countdown-item-title-bar")
+score_tomato <- html_elements(score_tomato, ".col-sm-20.col-full-xs")
+score_tomato <- html_elements(score_tomato, ".article_movie_title")
+score_tomato <- html_elements(score_tomato, "div")
+score_tomato <- html_elements(score_tomato, "h2")
+score_tomato <- html_elements(score_tomato, ".tMeterScore")
+score_tomato <- html_text(score_tomato)
+
+
+
+data <- data.frame(Ranking = 1:100, Name = name_tomato, Score = score_tomato, Year = year_tomato)
+colnames(data) <-  c("Ranking","Name of Movie", "Tomato % Score", "Year of Movie")
